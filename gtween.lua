@@ -380,6 +380,14 @@ function GTween:swapValues()
 	for n,v in pairs(self._rangeValues) do
 		self._rangeValues[n] = -v
 	end
+	
+	-- AWB 12/Sep/2012
+	-- Fix for bug where swapValues causes a jump in the animation. The problem is caused by setPosition() ignoring
+	-- the requested change if it doesn't think the position has actually changed. Since, after a swap, we are no longer
+	-- really at position 0 we can force the set by clearing out the calculatedPosition cache.
+	self.calculatedPosition=nil
+	-- End fix
+	
 	if self._position < 0 then
 		local pos = self.positionOld
 		self:setPosition(0)
