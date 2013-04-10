@@ -77,7 +77,7 @@ function GTween.staticTick()
 		return
 	end
 	local dt = (GTween.time - t) * GTween.timeScaleAll
-	for tween in pairs(GTween.tickList) do
+	for tween in pairs(table.copy(GTween.tickList)) do
 		tween:setPosition(tween._position + (tween.useFrames and GTween.timeScaleAll or dt) * tween.timeScale)
 	end
 	for k,v in pairs(GTween.tempTickList) do
